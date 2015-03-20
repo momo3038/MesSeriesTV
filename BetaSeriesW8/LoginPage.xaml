@@ -1,0 +1,578 @@
+﻿<common:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="BetaSeriesW8.LoginPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BetaSeriesW8"
+    xmlns:common="using:BetaSeriesW8.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:callisto="using:Callisto.Controls"
+    mc:Ignorable="d">
+
+    <Grid x:Name="gridMain" Margin="0,1,0,-1" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="209*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.RowSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <callisto:CustomDialog x:FieldModifier="public" x:Name="popupConnexion"  Title="Se connecter" Background="#FF537813" BackButtonVisibility="Visible">
+            <StackPanel Margin="30" Orientation="Vertical">
+                <Grid Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Width="300">
+                        <TextBlock x:Name="identifiantConnexion" FontSize="22" Foreground="White" Text="Identifiant" />
+                        <TextBox Height="50"  BorderThickness="0" x:Name="login" FontSize="16" Padding="12" />
+                        <TextBlock Margin="0,15,0,0" Text="Mot de passe" FontSize="22" Foreground="White" />
+                        <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="mdp" />
+                    </StackPanel>
+                    <Border Margin="10,0,0,0" Grid.Column="1" x:Name="btnSeConnecter"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" VerticalAlignment="Bottom" >
+                        <Button BorderBrush="AliceBlue" Height="50" BorderThickness="0" Visibility="Visible"  Click="SeConnecter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
+                            <TextBlock Text="Se connecter" />
+                        </Button>
+                    </Border>
+                    <ProgressRing BorderThickness="0" VerticalAlignment="Bottom" Margin="24,0,20,0" Grid.RowSpan="2" Foreground="White" MinHeight="40" Grid.Column="1" x:Name="progress1" IsActive="true" Visibility="Collapsed" Width="50" Height="50" />
+                </Grid>
+                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="18" x:Name="erreurLogin" Visibility="Collapsed" Text="{Binding ErreurLogin}" HorizontalAlignment="Center" Foreground="#FFBF0C0C" />
+            </StackPanel>
+        </callisto:CustomDialog>
+        <!--<Popup Visibility="Visible" Name="popupConnexion" IsOpen="False" IsLightDismissEnabled="True" Width="350" Height="230"  Grid.Row="1" >
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid x:Name="LayoutRoot" >
+                <Rectangle Fill="#FF537813" Opacity="1">
+                </Rectangle>
+                <StackPanel Margin="30" Orientation="Vertical">
+                    <Grid Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Width="300">
+                            <TextBlock x:Name="identifiantConnexion" FontSize="22" Foreground="White" Text="Identifiant" />
+                            <TextBox Height="50"  BorderThickness="0" x:Name="login" FontSize="16" Padding="12" />
+                            <TextBlock Margin="0,15,0,0" Text="Mot de passe" FontSize="22" Foreground="White" />
+                            <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="mdp" />
+                        </StackPanel>
+                        <Border Margin="10,0,0,0" Grid.Column="1" x:Name="btnSeConnecter"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" VerticalAlignment="Bottom" >
+                            <Button BorderBrush="AliceBlue" Height="50" BorderThickness="0" Visibility="Visible"  Click="SeConnecter" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
+                                <TextBlock Text="Se connecter" />
+                            </Button>
+                        </Border>
+                        <ProgressRing BorderThickness="0" VerticalAlignment="Bottom" Margin="24,0,20,0" Grid.RowSpan="2" Foreground="White" MinHeight="40" Grid.Column="1" x:Name="progress1" IsActive="true" Visibility="Collapsed" Width="50" Height="50" />
+                    </Grid>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="18" x:Name="erreurLogin" Visibility="Collapsed" Text="{Binding ErreurLogin}" HorizontalAlignment="Center" Foreground="#FFBF0C0C" />
+                </StackPanel>
+            </Grid>
+        </Popup>-->
+
+        <Popup Name="popupConnexionSnapped" IsOpen="False" Width="300" Height="200"  >
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid  Width="300">
+                <Rectangle Fill="#FF143451" Opacity="1">
+                </Rectangle>
+                <StackPanel Margin="30" Width="Auto" Orientation="Vertical">
+                    <Grid Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Width="Auto">
+                            <TextBlock FontSize="22" Foreground="White" Text="Identifiant" />
+                            <TextBox Height="50"  BorderThickness="0" x:Name="loginSnapped" FontSize="16" Padding="12" />
+                            <TextBlock Margin="0,15,0,0" Text="Mot de passe" FontSize="22" Foreground="White" />
+                            <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="mdpSnapped" />
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal" Width="Auto">
+                                <Border Margin="0,0,34,0" x:Name="btnSeConnecterSnapped"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" VerticalAlignment="Bottom" >
+                                    <Button BorderBrush="AliceBlue" Height="50" BorderThickness="0" Visibility="Visible"  Click="SeConnecterSnapped" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
+                                        <TextBlock Text="Se connecter" />
+                                    </Button>
+                                </Border>
+                                <Border HorizontalAlignment="Right" Width="Auto" x:Name="btnAnnulerSnapped"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" VerticalAlignment="Bottom" >
+                                    <Button HorizontalAlignment="Stretch" BorderBrush="AliceBlue" Height="50" BorderThickness="0" Visibility="Visible"  Click="FermerLaPopup" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"    >
+                                        <TextBlock Text="Annuler" />
+                                    </Button>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <ProgressRing BorderThickness="0" VerticalAlignment="Bottom" Margin="24,0,20,0" Grid.RowSpan="2" Foreground="White" MinHeight="40" Grid.Column="1" x:Name="progress1Snapped" IsActive="false" Visibility="Collapsed" Width="50" Height="50" />
+                    </Grid>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="18" x:Name="erreurLoginSnapped" Visibility="Collapsed" Text="{Binding ErreurLogin}" HorizontalAlignment="Center" Foreground="#FFBF0C0C" />
+                </StackPanel>
+            </Grid>
+        </Popup>
+
+        <callisto:CustomDialog x:FieldModifier="public" x:Name="popupInscription"  Title="S'inscrire sur Mes Séries TV" Background="#FFDC6A0A" BackButtonVisibility="Visible">
+            <StackPanel Margin="20" Orientation="Vertical" x:Name="gridInscription">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="15" Grid.ColumnSpan="2" Grid.Row="0" Text="Indiquez un nom d'utilisateur, un e-mail valide ainsi que le mot de passe que vous souhaitez pour créer un compte sur Mes Séries TV. Ajouter ensuite vos Séries favorites et obtenez en quelques clics votre planning pour ne rien manquer !" TextTrimming="WordEllipsis" ScrollViewer.HorizontalScrollBarVisibility="Hidden" TextWrapping="Wrap" HorizontalAlignment="Left" FlowDirection="LeftToRight" />
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+                        <TextBlock Margin="0,15,0,0" FontSize="22" Foreground="White" Text="Nom d'utilisateur" />
+                        <TextBox Height="50"  BorderThickness="0" x:Name="nomUtilisateur" FontSize="16" Padding="12" />
+                        <TextBlock Margin="0,15,0,0" FontSize="22" Foreground="White" Text="Adresse e-mail" />
+                        <TextBox Height="50"  BorderThickness="0" x:Name="adresseMail" FontSize="16" Padding="12" />
+                        <TextBlock Margin="0,15,0,0" Text="Mot de passe" FontSize="22" Foreground="White" />
+                        <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="mdpInscription" />
+                        <TextBlock Margin="0,15,0,0" Text="Confirmation mot de passe" FontSize="22" Foreground="White" />
+                        <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="ConfirmationMdp" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >
+                        <Border Margin="0" x:Name="stkBtnInscriptionVal"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                            <Button x:Name="btnSinscrire" Width="180" Height="50" BorderThickness="0" Visibility="Visible"  Click="ValiderInscription">
+                                <TextBlock Text="Valider" />
+                            </Button>
+                        </Border>
+                        <Border  x:Name="stkBtnInscriptionAnn"  Margin="90,0,0,0"   BorderBrush="AliceBlue" BorderThickness="2" Height="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                            <Button Width="180" x:Name="btnAnnulerInscription" Height="50" BorderThickness="0" Visibility="Visible"  Click="AnnulerInscription">
+                                <TextBlock Text="Annuler" />
+                            </Button>
+                        </Border>
+                        <ProgressRing BorderThickness="0" VerticalAlignment="Bottom" Margin="24,0,20,0" Grid.RowSpan="3" Foreground="White" MinHeight="40" Grid.Column="1" x:Name="progressInscription" IsActive="false" Visibility="Visible" Width="50" Height="50" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" x:Name="erreurInscription" Visibility="Collapsed" Text="{Binding ErreurInscription}" FontSize="22" HorizontalAlignment="Right" Foreground="#FFBF0C0C" />
+            </StackPanel>
+        </callisto:CustomDialog>
+        <!--<Popup Name="popupInscription" IsOpen="False" IsLightDismissEnabled="False" Width="500" Height="500" Grid.RowSpan="2"  >
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid x:Name="gridInscription" Width="500">
+                <Rectangle Fill="#FFDC6A0A" Stroke="Black" Opacity="1">
+                </Rectangle>
+                <StackPanel Margin="20" Orientation="Vertical">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="15" Grid.ColumnSpan="2" Grid.Row="0" Text="Indiquez un nom d'utilisateur, un e-mail valide ainsi que le mot de passe que vous souhaitez pour créer un compte sur BetaSeries. Ajouter ensuite vos Séries favorites et obtenez en quelques clics votre planning pour ne rien manquer !" TextTrimming="WordEllipsis" ScrollViewer.HorizontalScrollBarVisibility="Hidden" TextWrapping="Wrap" HorizontalAlignment="Left" FlowDirection="LeftToRight" />
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+                            <TextBlock Margin="0,15,0,0" FontSize="22" Foreground="White" Text="Nom d'utilisateur" />
+                            <TextBox Height="50"  BorderThickness="0" x:Name="nomUtilisateur" FontSize="16" Padding="12" />
+                            <TextBlock Margin="0,15,0,0" FontSize="22" Foreground="White" Text="Adresse e-mail" />
+                            <TextBox Height="50"  BorderThickness="0" x:Name="adresseMail" FontSize="16" Padding="12" />
+                            <TextBlock Margin="0,15,0,0" Text="Mot de passe" FontSize="22" Foreground="White" />
+                            <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="mdpInscription" />
+                            <TextBlock Margin="0,15,0,0" Text="Confirmation mot de passe" FontSize="22" Foreground="White" />
+                            <PasswordBox FontSize="16" Padding="12" Height="50" x:Name="ConfirmationMdp" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" Orientation="Horizontal" >
+                            <Border Margin="0" x:Name="stkBtnInscriptionVal"  BorderBrush="AliceBlue" BorderThickness="2" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                                <Button x:Name="btnSinscrire" Width="180" Height="50" BorderThickness="0" Visibility="Visible"  Click="ValiderInscription">
+                                    <TextBlock Text="Valider" />
+                                </Button>
+                            </Border>
+                            <Border  x:Name="stkBtnInscriptionAnn"  Margin="90,0,0,0"   BorderBrush="AliceBlue" BorderThickness="2" Height="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                                <Button Width="180" x:Name="btnAnnulerInscription" Height="50" BorderThickness="0" Visibility="Visible"  Click="AnnulerInscription">
+                                    <TextBlock Text="Annuler" />
+                                </Button>
+                            </Border>
+                            <ProgressRing BorderThickness="0" VerticalAlignment="Bottom" Margin="24,0,20,0" Grid.RowSpan="3" Foreground="White" MinHeight="40" Grid.Column="1" x:Name="progressInscription" IsActive="false" Visibility="Visible" Width="50" Height="50" />
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" x:Name="erreurInscription" Visibility="Collapsed" Text="{Binding ErreurInscription}" FontSize="22" HorizontalAlignment="Right" Foreground="#FFBF0C0C" />
+                </StackPanel>
+            </Grid>
+        </Popup>-->
+
+        <FlipView x:Name="FlipView5" BorderThickness="0" Background="{StaticResource BackgroundBSTop}" BorderBrush="Transparent" SelectionChanged="FlipView5_OnSelectionChanged" >
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="{Binding FondString}"  Stretch="UniformToFill"/>
+                        </Grid.Background>
+                        <ProgressRing VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,40" Width="75" Height="75" Foreground="{StaticResource BackGroundBS}" IsActive="{Binding FondEnCoursDeTelechargement}"></ProgressRing>
+                        <Button Click="VoirLaSerie" BorderBrush="Transparent"
+                                        BorderThickness="0" Content="{Binding Titre}" FontSize="25"
+                                        Background="Transparent" VerticalAlignment="Bottom" 
+                                        HorizontalAlignment="Right" />
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <Grid Visibility="Visible" Margin="100,92,0,0" x:Name="gridDeconnecte" Grid.RowSpan="2">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+
+            <!--<RichTextBlock VerticalAlignment="Center" Margin="100,0,0,0" Grid.Column="2" Grid.Row="2">
+                <Paragraph FontSize="20">Bienvenue !</Paragraph>
+                <Paragraph FontSize="15">BetaSeries W8 vous permet de découvrir de nouvelles séries TV et de gérer facilement votre planning pour ne plus rien manquer ! BetaSeries W8 vous permet également de télécharger les sous-titres (VO et FR) pour chaque épisode.</Paragraph>
+                <Paragraph FontSize="15">Pour pouvoir suivre vos Séries favorites, il est nécessaire de créer un compte. Pas de panique, cela ne prendra que quelques secondes !</Paragraph>
+            </RichTextBlock>-->
+
+
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource HomeSeConnecterBtn}" Background="#FF537813" Width="250" Height="200" Margin="0,15,0,0" x:Name="blocSeConnecter" Foreground="White"  HorizontalContentAlignment="Stretch" Click="btnSeConnecter_Click" RenderTransformOrigin="0.5,0.5" >
+                <StackPanel Orientation="Vertical" Margin="10" x:Name="contentBtn" >
+                    <StackPanel>
+                        <TextBlock Text="&gt; Se connecter" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap"  Text="Connectez-vous pour accéder à votre planning et gérer vos Séries" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource HomeSeConnecterBtn}" Background="Orange" Width="250" Height="200" Margin="0,15,0,0" x:Name="btnSincrire" Foreground="White"  HorizontalContentAlignment="Stretch" Click="btnSincrire_Click" >
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Text="&gt; S'inscrire" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                    <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Créer votre planning en quelques secondes pour ne plus rien rater !" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource HomeSeConnecterBtn}" Background="#FF090932" Width="290" Height="200" Margin="0,15,0,0" x:Name="btnRechercheUneSerie" Foreground="White"  HorizontalContentAlignment="Stretch" Click="BtnAjouterUneSerie_OnClick" >
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Text="&gt; Rechercher une série" FontSize="23" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" />
+                    <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Plus de 4900 séries qui n'attendent que vous !" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <StackPanel x:Name="stkLoading" Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="100,50">
+            <ProgressRing IsActive="True" Width="40" Height="40" x:Name="loader" Foreground="{StaticResource BackGroundBS}"  >
+            </ProgressRing>
+            <TextBlock FontSize="20" Margin="15,0,0,0" VerticalAlignment="Center" Text="" x:Name="textLoading"></TextBlock>
+        </StackPanel>
+
+        <VariableSizedWrapGrid Visibility="Collapsed" x:Name="blocAnnonce" HorizontalAlignment="Right" VerticalAlignment="Center" Height="Auto" Width="500">
+            <callisto:LiveTile Margin="5" x:Name="liveTile2" Width="210" Height="308"
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+            <callisto:LiveTile Margin="5" x:Name="liveTile3"  Width="210" Height="308" 
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+            <callisto:LiveTile Margin="5" x:Name="liveTile4" Width="210" Height="308" 
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+            <callisto:LiveTile Margin="5" x:Name="liveTile5"  Width="210" Height="308" 
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+            <callisto:LiveTile Margin="5" x:Name="liveTile6"  Width="210" Height="308" 
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+            <callisto:LiveTile Margin="5" x:Name="liveTile7"  Width="210" Height="308" 
+                       ItemsSource="{Binding}"
+                       Direction="Left" >
+                <callisto:LiveTile.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="210" Height="308" Margin="0" Padding="0" BorderThickness="0" Tag="{Binding Titre}" Click="ButtonBase_OnClick">
+                            <Image Source="{Binding Image}" Stretch="Uniform" />
+                        </Button>
+                    </DataTemplate>
+                </callisto:LiveTile.ItemTemplate>
+            </callisto:LiveTile>
+        </VariableSizedWrapGrid>
+
+
+        <Grid Margin="100,92,0,0" x:Name="gridConnecte" Visibility="Visible" Grid.RowSpan="2">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="280" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource HomeSeConnecterBtn}" Background="#FF50009B"  Width="250" Height="200" Margin="0,15,0,0" x:Name="blocMesSeries" Foreground="White"  HorizontalContentAlignment="Stretch" Click="BlocMesSeries_OnClick"  RenderTransformOrigin="0.5,0.5" >
+                <StackPanel Orientation="Vertical" Margin="10" >
+                    <StackPanel>
+                        <TextBlock Text="&gt; Mes séries" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap"  Text="Gérer en quelques clics toutes vos séries" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+
+            <Button DataContext="{Binding Utilisateur}" Grid.Column="0" Grid.Row="1" Style="{StaticResource ButtonStyleHomeBetaSeries}" Opacity="1" Background="#FFDC6A0A" BorderThickness="0" Width="250" Height="200" Margin="0,15,0,0" x:Name="btnMesEpisodes" Foreground="White"  HorizontalContentAlignment="Stretch"  Click="BtnMesEpisodes_OnClick" >
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Top" >
+                    <StackPanel Width="Auto" Height="Auto" Margin="0,-50,-10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FFA80505">
+                        <TextBlock Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NombreEpisodeARegarder}" FontSize="30"  Foreground="White" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Text="&gt; Mes épisodes" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Vos épisodes restant à voir" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+
+            <Button DataContext="{Binding Utilisateur}" Grid.Column="1" Grid.Row="1" Style="{StaticResource ButtonStyleHomeBetaSeries}" Opacity="1" Background="#40942A" BorderThickness="0" Width="280" Height="200" Margin="0,15,0,0" x:Name="btnMonPlanning" Foreground="White"  HorizontalContentAlignment="Stretch"  Click="btnMonPlanning_Click_1" >
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Top" >
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="&gt; Mon planning" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Visualiser les épisodes à venir" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource HomeSeConnecterBtn}" Background="#FF090932" Width="280" Height="200" Margin="0,15,0,0" x:Name="btnAjouterUneSerie" Foreground="White"  HorizontalContentAlignment="Stretch" Click="BtnAjouterUneSerie_OnClick" >
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Text="&gt; Ajouter une série" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                    <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Ajouter une nouvelle série à regarder" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid Visibility="Collapsed" HorizontalAlignment="Center" x:Name="gridDeconnecteSnapped" Grid.RowSpan="2">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="0,15,0,15" Text="BetaSeries" FontSize="36" FontFamily="Segoe UI" />
+
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource HomeSeConnecterBtn}" HorizontalAlignment="Center" Background="#FF0B6E7E" Width="250" Height="200" Margin="0,85,0,0" x:Name="blocSeConnecterSnaped" Foreground="White"  HorizontalContentAlignment="Stretch" Click="btnSeConnecterSnapped_Click" RenderTransformOrigin="0.5,0.5" >
+                <StackPanel Orientation="Vertical" Margin="10" x:Name="contentBtnSnapped" >
+                    <StackPanel>
+                        <TextBlock Text="&gt; Se connecter" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap"  Text="Connectez-vous pour accéder à votre planning et gérer vos Séries" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource HomeSeConnecterBtn}" Background="#FFDC2B04" Width="250" Height="200" Margin="0,15,0,0" HorizontalAlignment="Center" x:Name="btnSincrireSnapped" Foreground="White"  HorizontalContentAlignment="Stretch" Click="btnSincrire_Click" >
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <TextBlock Text="&gt; S'inscrire" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                    <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Créer votre planning en quelques secondes pour ne plus rien rater !" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid Margin="10" x:Name="gridConnecteSnapped" HorizontalAlignment="Center" Visibility="Collapsed" Grid.RowSpan="2">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="White" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="0,15,0,15" Text="BetaSeries" FontSize="36" FontFamily="Segoe UI" />
+
+
+            <Button Grid.Column="0" Grid.Row="0" BorderBrush="Transparent" Style="{StaticResource HomeSeConnecterBtn}" BorderThickness="0" Background="#FF50009B"  Width="250" Height="200" HorizontalAlignment="Center" Margin="0,85,0,0" Foreground="White"  HorizontalContentAlignment="Stretch" Click="BlocMesSeries_OnClick"  RenderTransformOrigin="0.5,0.5" >
+                <StackPanel Orientation="Vertical" Margin="10" >
+                    <StackPanel>
+                        <TextBlock Text="&gt; Mes séries" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap"  Text="Gérer en quelques clics toutes vos séries" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+
+            <Button DataContext="{Binding Utilisateur}" Grid.Column="0" Grid.Row="1" BorderBrush="Transparent" Style="{StaticResource ButtonStyleHomeBetaSeries}" BorderThickness="0" Opacity="1" Background="#FFDC6A0A" Width="250" Height="200" Margin="0,15,0,0" HorizontalAlignment="Center" Foreground="White"  HorizontalContentAlignment="Stretch"  Click="BtnMesEpisodes_OnClick" >
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Top" >
+                    <StackPanel Width="Auto" Height="Auto" Margin="0,-50,-10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FFA80505">
+                        <TextBlock Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NombreEpisodeARegarder}" FontSize="30"  Foreground="White" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <TextBlock Text="&gt; Mes épisodes" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap" Text="Vos épisodes restant à voir" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" Style="{StaticResource HomeSeConnecterBtn}" BorderThickness="0" Background="#40942A"  Width="250" Height="200" HorizontalAlignment="Center" Margin="0,85,0,0" Foreground="White"  HorizontalContentAlignment="Stretch" Click="btnMonPlanning_Click_1"  RenderTransformOrigin="0.5,0.5" >
+                <StackPanel Orientation="Vertical" Margin="10" >
+                    <StackPanel>
+                        <TextBlock Text="&gt; Mon planning" FontSize="25" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Margin="25,0,0,0" TextWrapping="Wrap"  Text="Visualiser les épisodes à venir" FontSize="15" Foreground="White" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+
+            <!-- Visual states reflect the application's view state -->
+            <VisualStateGroup>
+                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="Filled"/>
+
+                <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
+                <VisualState x:Name="FullScreenPortrait">
+                    <!--<Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>-->
+                </VisualState>
+
+                <!-- The back button and title have different styles when snapped -->
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="blocAnnonce" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="stkFond" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>-->
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="gridMain" Storyboard.TargetProperty="Background">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="#FF3B8DD0"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="gridDeconnecte" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="gridConnecte" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="popupInscription" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="5"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="stkBtnInscriptionAnn" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="20,0,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="gridInscription" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="250"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="btnAnnulerInscription" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="120"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="btnSinscrire" Storyboard.TargetProperty="Width">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="100"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderInscription" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="30,0,0,0"/>
+                        </ObjectAnimationUsingKeyFrames>-->
+
+
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="btnSinscrire" Storyboard.TargetProperty="Grid.Row">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                        </ObjectAnimationUsingKeyFrames>-->
+
+
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</common:LayoutAwarePage>

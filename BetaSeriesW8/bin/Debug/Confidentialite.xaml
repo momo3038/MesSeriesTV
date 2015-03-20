@@ -1,0 +1,118 @@
+﻿<common:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="BetaSeriesW8.Confidentialite"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BetaSeriesW8"
+    xmlns:common="using:BetaSeriesW8.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <x:String x:Key="AppName">A propos ...</x:String>
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+<ScrollViewer>
+        <RichTextBlock Foreground="Black" Margin="15" FontSize="15">
+            <Paragraph>
+                Cette politique de confidentialité définit la manière dont Mes Séries TV utilise et protège les informations que vous donnez à BetaSeries.com lorsque vous utilisez cette application.
+            </Paragraph>
+            <Paragraph>
+                <LineBreak/>
+                Mes Séries TV s'engage à faire en sorte que vos informations privées soient protégées. Nous vous demandons de fournir certaines informations par lesquelles vous pouvez être identifié lors de l'utilisation de cette application alors vous pouvez être rassuré qu'elles ne seront utilisées que conformément à la présente déclaration de confidentialité.
+            </Paragraph>
+
+            <Paragraph>
+                <LineBreak/>
+                Mes Séries TV peut changer cette politique de temps à autre en mettant à jour cette page. Vous devez vérifier cette page de temps 
+
+en temps pour s'assurer que vous êtes satisfait des changements.
+
+            </Paragraph>
+            <Paragraph>
+                <LineBreak/>
+                <Bold>Ce que nous collectons</Bold>
+            </Paragraph>
+            <Paragraph>
+                <LineBreak/>
+
+                Nous pouvons collecter les informations suivantes:
+                <LineBreak/>
+                •    Login
+                <LineBreak/>
+                •    Adresse e-mail
+
+            </Paragraph>
+            <Paragraph>
+                <LineBreak/>
+                <Bold>Ce que nous faisons avec les informations que nous recueillons</Bold>
+            </Paragraph>
+            <Paragraph>
+                Nous avons besoin de ces renseignements pour conserver vos Series préférés et vos épisodes vus.
+            </Paragraph>
+            <Paragraph>
+                <LineBreak/>
+                <Bold>Sécurité</Bold>
+<LineBreak/>
+Le stockage de vos données est effectué par le site BetaSeries.com.
+            </Paragraph>
+
+            <Paragraph>
+                <LineBreak/>
+            <Bold>Contrôle de vos informations personnelles</Bold>
+<LineBreak/>
+Vous pouvez choisir de supprimer votre compte BetaSeries
+<LineBreak/>
+•    En vous connectant sur le site BetaSeries.com.
+                <LineBreak/>
+•    Connectez vous avec votre identifiant et votre mot de passe puis, dans votre 
+
+compte, selectionner : Supprimer ce compte.
+
+                <LineBreak/>
+                <LineBreak/>
+Nous n'allons pas vendre, distribuer ou louer vos informations personnelles à des tiers.
+            </Paragraph>
+        </RichTextBlock>
+</ScrollViewer>
+    <VisualStateManager.VisualStateGroups>
+
+        <!-- Visual states reflect the application's view state -->
+        <VisualStateGroup x:Name="ApplicationViewStates">
+            <VisualState x:Name="FullScreenLandscape"/>
+            <VisualState x:Name="Filled"/>
+
+            <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
+            <VisualState x:Name="FullScreenPortrait">
+                <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+
+            <!-- The back button and title have different styles when snapped -->
+            <VisualState x:Name="Snapped">
+                <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+</common:LayoutAwarePage>
+
